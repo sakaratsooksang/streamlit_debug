@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import linear_kernel
 st.write('load data')
 @st.cache_data
 def load_data():
-    anime_df = pd.read_csv('anime_with_synopsis.csv')
+    anime_df = pd.read_csv('anime_with_synopsis.csv').sample(frac=0.5)
     #rating_df = pd.read_csv('rating.csv')
 
     anime_df = anime_df.rename({'sypnopsis': 'Synopsis'}, axis=1)
