@@ -49,7 +49,7 @@ def Table(df):
 
 ## main section
 if __name__ == '__main__':
-    anime_df, anime_copy, tfidf_matrix = load_data()
+    anime_df, anime_copy, tfidf_matrix, cosine_sim = load_data()
     anime_list = anime_df['Name'].values
 
     st.title(':red[Anime] Recommendation System')
