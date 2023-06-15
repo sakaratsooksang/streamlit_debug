@@ -5,7 +5,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-
+st.write('load data')
 @st.cache_data
 def load_data():
     anime_df = pd.read_csv('anime_with_synopsis.csv')
@@ -23,7 +23,8 @@ def load_data():
     tfidf = TfidfVectorizer(stop_words='english')
     anime_copy['tagline'] = anime_copy['tagline'].fillna('')
     tfidf_matrix = tfidf.fit_transform(anime_copy['tagline'])
-    return anime_df, anime_copy, tfidf_matrix
+    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
+    return anime_df, anime_copy, tfidf_matrix, cosine_sim
 
 def get_recommendations(Name, cosine_sim):
     idx = anime_copy[anime_copy['Name'] == Name].index[0]
@@ -48,7 +49,6 @@ def Table(df):
 ## main section
 if __name__ == '__main__':
     anime_df, anime_copy, tfidf_matrix = load_data()
-    cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix)
     anime_list = anime_df['Name'].values
 
     st.title(':red[Anime] Recommendation System')
