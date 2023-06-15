@@ -23,6 +23,7 @@ def load_data():
     tfidf = TfidfVectorizer(stop_words='english')
     anime_copy['tagline'] = anime_copy['tagline'].fillna('')
     tfidf_matrix = tfidf.fit_transform(anime_copy['tagline'])
+    st.write(tfidf_matrix)
     cosine_sim = linear_kernel(tfidf_matrix, tfidf_matrix,dense_output = False)
     return anime_df, anime_copy, tfidf_matrix, cosine_sim
 
